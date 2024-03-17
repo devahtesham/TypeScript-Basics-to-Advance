@@ -1,5 +1,5 @@
 "use strict";
-// simple class structure
+// =========== simple class structure
 class Engineer {
     // ----- this is making my code duplication, to avoid this we use access modifiers/visibility modifiers 
     // field: string
@@ -53,5 +53,54 @@ class SoftEng extends Engineer {
     }
 }
 const softEngObj = new SoftEng("JS Dev", "MAJU", 2012, 230000, 6);
-// console.log(softEngObj.employementStatus());
-console.log(softEngObj.testProtectedFunction());
+class Web {
+    constructor(tech, experience, designation) {
+        this.tech = tech;
+        this.experience = experience;
+        this.designation = designation;
+        this.tech = tech,
+            this.experience = experience;
+        this.designation = designation;
+    }
+    coding(lang) {
+        return `I code in ${lang}`;
+    }
+}
+const webObj = new Web("TypeScript", 3, "Soft Developer");
+// console.log(webObj.coding("TypeScript"));
+// ============= STATIC KEYWORD
+class FrontendDev {
+    constructor(name, company, salaryPackage) {
+        this.name = name;
+        this.company = company;
+        this.salaryPackage = salaryPackage;
+        this.name = name;
+        this.company = company;
+        this.salaryPackage = salaryPackage;
+    }
+    // static method
+    static FrontendEng(skill) {
+        return `They are good at ${skill} and ${FrontendDev.tech}`;
+    }
+    creativity(percentage) {
+        return `They are ${percentage} % creative people and good at ${FrontendDev.tech}`;
+    }
+}
+// static property
+FrontendDev.tech = "ReactJS";
+// console.log(FrontendDev.company);   // throws an error due to non static property, required instantiation
+// console.log(FrontendDev.tech);
+// console.log(FrontendDev.FrontendEng("JS"));
+// const frontendObj = new FrontendDev("Ahti","Gaditek",70000);
+// console.log(frontendObj.tech);  // throws an error due to static property, required Class.propety
+// console.log(frontendObj.creativity(90));
+class JrFrontendDev extends FrontendDev {
+    constructor(name, company, salaryPackage) {
+        super(name, company, salaryPackage);
+        this.name = name;
+        this.company = company;
+        this.salaryPackage = salaryPackage;
+    }
+}
+console.log(JrFrontendDev.tech);
+console.log(JrFrontendDev.FrontendEng("OOP"));
