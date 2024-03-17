@@ -133,8 +133,46 @@ class JrFrontendDev extends FrontendDev {
     }
 }
 
-console.log(JrFrontendDev.tech);
-console.log(JrFrontendDev.FrontendEng("OOP"));
+// console.log(JrFrontendDev.tech);
+// console.log(JrFrontendDev.FrontendEng("OOP"));
+
+
+// ================ GETTERS AND SETTERS 
+
+class Product {
+    private stock: string[];
+
+    constructor(){
+        this.stock = []
+    }
+
+    // getter function
+    public get productStock():string[]{
+        return this.stock
+    }
+
+    // setter function
+    public set productStock(products:string[]){
+        this.stock = products
+    }
+
+}
+const gymWears = new Product()
+// setting a value
+gymWears.productStock = ["Tank","Shorts","Shoes"];
+// console.log(gymWears.productStock);
+
+
+// extend the Product class to check the existance of getter and setter in it or not
+class MensJeans extends Product{
+}
+
+const jeans = new MensJeans()
+jeans.productStock=["new jeans","narrow jeans"];
+console.log(jeans.productStock);
+
+
+
 
 
 
