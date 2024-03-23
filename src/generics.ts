@@ -47,9 +47,15 @@ const isActiveStatus = <T>(username: T): ActiveStatus<T> => {
 
 
 // Eg# 04 ===== use simple interface as a generic as below
+
+// Generic Constraints
+
+// our HasId Constraint
 interface HasId {
     id: number
 }
+
+
 const isUserStatusActive = <T extends HasId>(user: T): T => {
     return user
 }
@@ -57,6 +63,55 @@ const isUserStatusActive = <T extends HasId>(user: T): T => {
 // console.log(isUserStatusActive({ id: 1, username: "ali", age: 23 }));
 // console.log(isUserStatusActive({ username: "ali", age: 23 }));       // throws error due to no id property
 
+
+// Double constraints
+interface UsersInfo {
+    userId: number
+    username: string
+    age: number
+    email: string
+}
+const usersData: UsersInfo[] = [
+    {
+        userId: 1,
+        username: "Ali",
+        age: 20,
+        email: "test123@"
+    },
+    {
+        userId: 2,
+        username: "Alisha",
+        age: 22,
+        email: "test123@23245"
+    },
+    {
+        userId: 3,
+        username: "Aliza",
+        age: 21,
+        email: "test123@kjkksje"
+    },
+    {
+        userId: 4,
+        username: "Alishbaa",
+        age: 24,
+        email: "test123@aasas"
+    },
+
+]
+
+// we want to get the users detail by their keys present in an object 
+// ==== without using generic (very specific)
+// const getUserDetailByKey = (users: UsersInfo[], key: string):(string|number)[] => {
+//     return users.map(user => user[key as keyof UsersInfo])
+// }
+
+// ==== with generic function we can achieve like below
+const getUserDetailByKey = <T extends UsersInfo, K extends keyof T>(users: T[], key: K):T[K][] => {
+    // here compiler did'nt throw an error due to above assertion
+    return users.map(user => user[key])     
+}
+
+console.log(getUserDetailByKey(usersData,"userId"));
 
 // Eg# 05 ===== use generic in class
 class StateObj<T> {
@@ -79,11 +134,11 @@ class StateObj<T> {
 
 const stateObj1 = new StateObj("Hassan");       // it make this string type only, so now after this we cant set any other type data
 
-console.log(stateObj1.state);
+// console.log(stateObj1.state);
 stateObj1.state = "Ahmed"
-console.log(stateObj1.state);
+// console.log(stateObj1.state);
 // stateObj1.state = 20
 
 const stateObj2 = new StateObj<number>(10);       // now in that way we can set different data type value by passing specific type in place of <T>
 
-console.log(stateObj2.state);
+// console.log(stateObj2.state);
